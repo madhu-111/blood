@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config(); // Load environment variables
 
 const app = express();
-const PORT = 5001
+const PORT = 3000
 
 // Middleware
 app.use(express.json());
