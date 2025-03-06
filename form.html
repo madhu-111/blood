@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Portal</title>
+    <link rel="stylesheet" href="form.css">
+
+</head>
+<body>
+    <div class="header">
+        <h1>Save Lives, Donate Blood</h1>
+        <p>Your donation can save up to 3 lives. Join our community of heroes making a difference every day.</p>
+    </div>
+
+    <!-- Button to Show Form -->
+    <button class="donate-button" onclick="toggleDonorForm()">Become a Donor Today</button>
+
+    <!-- Donor form -->
+    <div class="donor-form-container" id="donorFormContainer">
+        <div class="blood-drop"></div>
+        <h2>Become a Blood Donor</h2>
+        <form id="donorForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+            
+            <label for="age">Age:</label>
+            <input type="number" id="age" placeholder="Must be 18 or older" min="18" max="65" required>
+            
+            <label for="number">Mobile Number:</label>
+            <input type="tel" id="number" pattern="[0-9]{10}" placeholder="10-digit mobile number" title="Enter a valid 10-digit number" required>
+            
+            <label for="bloodType">Blood Type:</label>
+            <select id="bloodType" required>
+                <option value="">Select your blood type</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" placeholder="Your city or neighborhood" required>
+
+            <button type="submit">Submit Registration</button>
+        </form>
+    </div>
+    
+    <div class="benefits-container">
+        <div class="benefit-card">
+            <h3>Health Check</h3>
+            <p>Free mini health check-up with every donation.</p>
+        </div>
+        <div class="benefit-card">
+            <h3>Save Lives</h3>
+            <p>One donation can help save up to three lives.</p>
+        </div>
+        <div class="benefit-card">
+            <h3>Heart Health</h3>
+            <p>Regular donations reduce risk of heart disease.</p>
+        </div>
+    </div>
+
+    <script>
+
+
+        function toggleDonorForm() {
+            const formContainer = document.getElementById("donorFormContainer");
+            if (formContainer.style.display === "none" || formContainer.style.display === "") {
+                formContainer.style.display = "block";
+            } else {
+                formContainer.style.display = "none";
+            }
+        }
+
+
+        // Handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const number = document.getElementById("number").value;
+            const bloodType = document.getElementById("bloodType").value;
+            const location = document.getElementById("location").value;
+
+            if (!name || !age || !number || !bloodType || !location) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            // First check if a donor with the same mobile number already exists
+            fetch(`http://localhost:3000/donors/check/${number}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        alert("A donor with this mobile number already exists. Please use a different number.");
+                        return;
+                    }
+                    
+                    // If number is unique, proceed with adding the donor
+                    const newDonor = { name, age, number, bloodType, location };
+
+                    // Send donor data to the backend
+                    fetch('http://localhost:3000/donors', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newDonor)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Donor added:', data);
+                        alert("Donor added successfully!");
+                        loadDonors(); // Reload the donor list
+                        document.getElementById("donorForm").reset();
+                        toggleDonorForm();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Error adding donor. Please try again.");
+                    });
+                })
+                .catch(error => {
+                    console.error('Error checking existing donor:', error);
+                    
+                    // Fallback to the original code if the check endpoint is not available
+                    const newDonor = { name, age, number, bloodType, location };
+                    
+                    fetch('http://localhost:3000/donors', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newDonor)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Donor added:', data);
+                        alert("Donor added successfully!");
+                        loadDonors(); // Reload the donor list
+                        document.getElementById("donorForm").reset();
+                        toggleDonorForm();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Error adding donor. Please try again.");
+                    });
+                });
+        }
+
+        document.getElementById("donorForm").addEventListener("submit", handleFormSubmit);
+
+         // Toggle donor form visibility
+         function toggleDonorForm() {
+            let formContainer = document.getElementById("donorFormContainer");
+            formContainer.style.display = formContainer.style.display === "none" || formContainer.style.display === "" ? "flex" : "none";
+        }
+
+        // Handle form submission
+        document.getElementById("donorForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+        
+        // Show success message
+        alert("Thank you for registering as a donor! Our team will contact you soon to schedule your donation.");
+        
+        // Navigate to home.html after 2 seconds
+        setTimeout(() => {
+            window.location.href = "home.html";
+        }, 1000);
+    });
+
+    </script>
+    <!-- <script src="script.js"></script> -->
+</body>
+</html>

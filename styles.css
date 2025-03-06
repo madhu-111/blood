@@ -1,137 +1,244 @@
-/* Basic reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body and header */
+/* General Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+    margin: 0;
+    background-color: #f4f4f4;
     color: #333;
-    padding: 20px;
-    line-height: 1.6;
 }
 
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    color: #e44d26; /* Reddish color for links */
+    text-decoration: none;
+}
+
+/* Header Styles */
 header {
+    background-color: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    color: #e44d26;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.donate-button {
+    background-color: #e44d26;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.donate-button i {
+    margin-right: 8px;
+}
+
+.donate-button:hover {
+    background-color: #c3371a;
+}
+
+/* Hero Section */
+.hero {
     text-align: center;
-    
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 80px 0;
 }
 
-header h1 {
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-/* Form styling */
-.donor-form-container {
-    background-color: white;
-    padding: 25px;
-    margin: 20px auto;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.donor-form-container h2 {
-    text-align: center;
-    color: #dc3545;
+.hero h2 {
+    font-size: 36px;
     margin-bottom: 20px;
 }
 
-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
 }
 
-form input,
-form select,
-form button {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
+/* Search and Location */
+.search-container, .location-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
 }
 
-form input:focus,
-form select:focus {
-    border-color: #dc3545;
-    outline: none;
-    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+.search-container i, .location-container i {
+    margin-right: 10px;
+    color: #e44d26;
 }
 
-form button {
-    background-color: #dc3545;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
+.search-container input[type="text"] {
+    border: none;
+    flex-grow: 1; /* Allow the input to take up available space */
+    padding: 10px;
+    font-size: 16px;
+}
+
+.location-button {
+    background-color: #e44d26;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
 }
 
-form button:hover {
-    background-color: #c82333;
+.location-button:hover {
+    background-color: #c3371a;
 }
 
-/* Donor list styling */
+#userLocation {
+    margin-left: 10px; /* Add some space between the button and location text */
+    font-size: 14px;
+    display: none; /* Initially hide the location */
+}
+
+/* Donor List */
 .donors-list {
-    margin-top: 40px;
-    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .donors-list h2 {
-    color: #dc3545;
     margin-bottom: 20px;
 }
 
 #donorList {
-    list-style-type: none;
-    padding-left: 0;
-    max-width: 600px;
-    margin: 0 auto;
+    list-style: none;
+    padding: 0;
 }
 
 #donorList li {
-    background-color: #fff;
+    background-color: #f9f9f9;
     padding: 15px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#donorList li:hover {
-    transform: scale(1.02);
+.donor-info {
+    display: flex;
+    align-items: center;
 }
 
-/* Additional styles for search bar */
-.search-container {
+.blood-type {
+    background-color: #e44d26;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.donor-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.donor-location {
+    font-size: 14px;
+    color: #555;
+}
+
+.contact-btn {
+    background-color: #007bff; /* Blue color for contact button */
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+    margin-top: 40px;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    margin-top: 20px;
 }
 
-.search-container input {
-    width: 90%;
-    max-width: 500px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
+.footer-links {
+    margin-bottom: 20px;
 }
 
-.search-container input:focus {
-    border-color: #dc3545;
-    outline: none;
-    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+.footer-links a {
+    color: #fff;
+    margin: 0 10px;
+}
+
+.social-icons {
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    display: inline-block;
+    margin: 0 5px;
+    color: #fff;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #e44d26;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
 }

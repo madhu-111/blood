@@ -1,5 +1,5 @@
 // Handle form submission
-document.getElementById("donorForm").addEventListener("submit", function(event) {
+function handleFormSubmit(event) {
     event.preventDefault();
     
     const name = document.getElementById("name").value;
@@ -8,15 +8,17 @@ document.getElementById("donorForm").addEventListener("submit", function(event) 
     const bloodType = document.getElementById("bloodType").value;
     const location = document.getElementById("location").value;
 
-    // Prepare the donor object
+    if (!name || !age || !number || !bloodType || !location) {
+        alert("Please fill out all fields.");
+        return;
+    }
+
     const newDonor = { name, age, number, bloodType, location };
 
-    // Send the donor data to the backend (Node.js server with MongoDB Atlas)
+    // Send donor data to the backend
     fetch('http://localhost:3000/donors', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newDonor)
     })
     .then(response => response.json())
@@ -27,24 +29,40 @@ document.getElementById("donorForm").addEventListener("submit", function(event) 
     })
     .catch(error => console.error('Error:', error));
     
-    document.getElementById("donorForm").reset(); // Reset the form
-});
+    document.getElementById("donorForm").reset();
+    toggleDonorForm();
+}
 
-// Search functionality
-document.getElementById("searchBar").addEventListener("input", function(event) {
-    const searchQuery = event.target.value.toLowerCase();
-    const donorListItems = document.querySelectorAll("#donorList li");
+document.getElementById("donorForm").addEventListener("submit", handleFormSubmit);
 
-    donorListItems.forEach(item => {
-        const donorName = item.textContent.toLowerCase();
-        // Add matching for blood type, location, etc.
-        if (donorName.includes(searchQuery)) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
+// Toggle donor form visibility
+function toggleDonorForm() {
+    let formContainer = document.getElementById("donorFormContainer");
+    formContainer.style.display = formContainer.style.display === "none" ? "block" : "none";
+}
+
+// Get user location
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            document.getElementById("userLocation").textContent = 
+                `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+// Search donors
+function searchDonors() {
+    let searchValue = document.getElementById("searchBar").value.toLowerCase();
+    let donors = document.querySelectorAll("#donorList li");
+    donors.forEach(donor => {
+        donor.style.display = donor.textContent.toLowerCase().includes(searchValue) ? "block" : "none";
     });
-});
+}
+
+document.getElementById("searchBar").addEventListener("input", searchDonors);
 
 // Fetch and display donors from MongoDB
 function loadDonors() {
@@ -56,7 +74,6 @@ function loadDonors() {
 
             data.forEach(donor => {
                 const listItem = document.createElement("li");
-                // Format donor information for easier reading
                 listItem.textContent = `Name: ${donor.name}, Age: ${donor.age}, Mobile: ${donor.number}, Blood Type: ${donor.bloodType}, Location: ${donor.location}`;
                 donorList.appendChild(listItem);
             });
