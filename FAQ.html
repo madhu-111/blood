@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - Blood Heroes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .faq-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .faq-search {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .faq-search input {
+            width: 100%;
+            padding: 15px 20px 15px 45px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-search i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background-color: white;
+        }
+
+        .faq-question {
+            padding: 18px 20px;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: #f9f9f9;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .faq-answer-content {
+            padding: 0 20px 20px;
+        }
+
+        .faq-item.active .faq-question {
+            background-color: #f9f9f9;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .not-found {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+
+        .contact-cta {
+            margin-top: 40px;
+            text-align: center;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .contact-cta h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .contact-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <a href="home.html"><h1>Blood Heroes</h1></a>
+                </div>
+                <a href="form.html">
+                    <button class="donate-button">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        Donate Blood
+                    </button>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="page-title">Frequently Asked Questions</h2>
+        <p class="page-description">Find answers to common questions about blood donation, eligibility, and the donation process.</p>
+        
+        <div class="faq-container">
+            <div class="faq-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="faqSearch" placeholder="Search for questions..." onkeyup="searchFAQ()">
+            </div>
+            
+            <div class="faq-categories">
+                <button class="category-btn active" onclick="filterCategory('all')">All</button>
+                <button class="category-btn" onclick="filterCategory('eligibility')">Eligibility</button>
+                <button class="category-btn" onclick="filterCategory('process')">Donation Process</button>
+                <button class="category-btn" onclick="filterCategory('after')">After Donation</button>
+                <button class="category-btn" onclick="filterCategory('general')">General</button>
+            </div>
+            
+            <div id="faqList">
+                <!-- Eligibility Questions -->
+                <div class="faq-item" data-category="eligibility">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Who can donate blood?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Generally, you can donate blood if you:
+                            <ul>
+                                <li>Are at least 17 years old (16 in some states with parental consent)</li>
+                                <li>Weigh at least 110 pounds</li>
+                                <li>Are in good health</li>
+                                <li>Have not donated blood in the last 56 days</li>
+                            </ul>
+                            There are specific eligibility requirements related to medical conditions, medications, and travel history. Our medical staff will evaluate your eligibility during the donation process.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="eligibility">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How often can I donate blood?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            You can donate whole blood every 56 days (8 weeks). If you're donating platelets, you can donate every 7 days up to 24 times per year. For plasma, you can donate every 28 days, and for double red cells, every 112 days.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="eligibility">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Can I donate if I have high blood pressure?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes, in most cases. If your blood pressure is below 180/100 at the time of donation, you are usually eligible to donate. If you're taking medication for high blood pressure, you should be stable on your medication.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Donation Process Questions -->
+                <div class="faq-item" data-category="process">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How long does the donation process take?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            The entire process takes about an hour, though the actual blood donation only takes 8-10 minutes. This includes registration, mini-physical, donation, and refreshments afterward.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="process">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Does donating blood hurt?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Most donors report feeling only a brief pinch when the needle is inserted. The actual donation process is typically painless. Our staff is trained to make the experience as comfortable as possible.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="process">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What types of donation are available?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            We offer several types of donations:
+                            <ul>
+                                <li><strong>Whole Blood:</strong> The most common type of donation</li>
+                                <li><strong>Platelets:</strong> Takes longer but provides critical components for cancer patients</li>
+                                <li><strong>Plasma:</strong> The liquid portion of blood used for various treatments</li>
+                                <li><strong>Double Red Cells:</strong> Donates twice the amount of red cells</li>
+                            </ul>
+                            Your blood type and local needs determine which donation type might be best for you.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- After Donation Questions -->
+                <div class="faq-item" data-category="after">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What should I do after donating blood?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            After donating:
+                            <ul>
+                                <li>Drink plenty of fluids</li>
+                                <li>Avoid strenuous physical activity for 24 hours</li>
+                                <li>Keep the bandage on for several hours</li>
+                                <li>Eat healthy, iron-rich foods</li>
+                                <li>If you feel dizzy, sit or lie down until you feel better</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="after">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How long does it take to replenish the blood I donated?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Your body replaces the blood volume (plasma) within 24 hours. Red blood cells are replaced by your bone marrow within 4-6 weeks, which is why you need to wait at least 8 weeks between whole blood donations.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- General Questions -->
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Who benefits from blood donations?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Blood donations help many people, including:
+                            <ul>
+                                <li>Accident and trauma victims</li>
+                                <li>Cancer patients</li>
+                                <li>People undergoing surgery</li>
+                                <li>Those with blood disorders like sickle cell anemia</li>
+                                <li>Women with pregnancy complications</li>
+                                <li>Premature babies</li>
+                            </ul>
+                            One donation can save up to three lives!
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What blood types are most needed?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            All blood types are needed, but:
+                            <ul>
+                                <li><strong>O Negative:</strong> Universal donor for red cells, can be given to anyone</li>
+                                <li><strong>O Positive:</strong> Most common blood type</li>
+                                <li><strong>AB Negative:</strong> Rarest blood type</li>
+                                <li><strong>AB Positive:</strong> Universal recipient, can receive any type</li>
+                            </ul>
+                            Type O negative is particularly needed for emergencies when there's no time to determine a patient's blood type.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Is there a blood shortage?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Blood supplies vary throughout the year, with shortages common during holidays, summer, and winter months. Only about 3% of eligible people donate blood, which is why we always need more donors. Every donation makes a significant difference in maintaining a stable blood supply.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="notFound" class="not-found" style="display: none;">
+                <i class="fas fa-search fa-2x"></i>
+                <h3>No matching questions found</h3>
+                <p>Try another search term or browse the categories</p>
+            </div>
+            
+            <div class="contact-cta">
+                <h3>Still have questions?</h3>
+                <p>We're here to help. If you can't find the answer you're looking for, please contact our team.</p>
+                <a href="contact.html" class="contact-btn">
+                    <i class="fas fa-envelope"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-links">
+                    <a href="about.html">About Us</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="Privacy Policy Page.html">Privacy Policy</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p>&copy; 2025 Blood Heroes. All rights reserved.</p>
+                <p>Contact us: BloodHeroes@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle FAQ items
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+        
+        // Search functionality
+        function searchFAQ() {
+            const searchText = document.getElementById('faqSearch').value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            let found = false;
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                
+                if (question.includes(searchText) || answer.includes(searchText)) {
+                    item.style.display = 'block';
+                    found = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('notFound').style.display = found ? 'none' : 'block';
+        }
+        
+        // Filter by category
+        function filterCategory(category) {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            categoryButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase() === category || 
+                    (btn.textContent.toLowerCase() === 'all' && category === 'all')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            const faqItems = document.querySelectorAll('.faq-item');
+            let found = false;
+            
+            faqItems.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    found = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('notFound').style.display = found ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

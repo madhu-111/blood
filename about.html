@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Blood Heroes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-section {
+            padding: 30px 0;
+        }
+        .about-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .about-section p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .team-section {
+            margin-top: 40px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .team-member {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .team-member h3 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        .team-member p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .mission, .vision {
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .mission h3, .vision h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .mission h3 i, .vision h3 i {
+            margin-right: 10px;
+        }
+        @media (max-width: 768px) {
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <a href="home.html"><h1>Blood Heroes</h1></a>
+                </div>
+                <a href="form.html">
+                    <button class="donate-button">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        Donate Blood
+                    </button>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="about-section">
+            <h2>About Blood Heroes</h2>
+            <p>Blood Heroes was founded in 2025 with a simple mission: to bridge the gap between blood donors and those in need. In emergency situations, finding the right blood type quickly can mean the difference between life and death. Our platform connects willing donors with patients requiring blood transfusions, creating a community of heroes who save lives every day.</p>
+            
+            <p>What began as a small community initiative has grown into a nationwide network of donors ready to help at a moment's notice. Blood Heroes is more than just a donation platform—it's a movement towards a more compassionate and responsive healthcare system.</p>
+
+            <div class="mission-vision">
+                <div class="mission">
+                    <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                    <p>To create a responsive and efficient blood donation network that ensures no life is lost due to lack of timely access to blood. We aim to make blood donation a cultural norm and create awareness about its importance.</p>
+                </div>
+                <div class="vision">
+                    <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                    <p>A world where every person in need has immediate access to safe blood transfusions, supported by a global community of voluntary donors committed to saving lives.</p>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2>Our Team</h2>
+                <p>Blood Heroes is Powered By A Dedicated Team Of Volunteers Who Belive In Making a WebPage To Save The Life.</p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="team1.jpeg" alt="D.Madhu">
+                        <h3>D.Yeswanth Madhu</h3>
+                        <p>Student Of SRKR Engineering.</p>
+                        <p>#Web Developer.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="#" alt="J.Karthik">
+                        <h3>J.Karthik</h3>
+                        <p>Student Of SRKR Engineering.</p>
+                        <p>#Web Developer.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="#" alt="D.Satya">
+                        <h3>D.Satya</h3>
+                        <p>Student Of SRKR Engineering.</p>
+                        <p>#Web Developer.p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-section">
+                <h2>How It Works</h2>
+                <p>Blood Heroes operates on a simple principle: connect donors with recipients efficiently and safely.</p>
+                <ol style="line-height: 1.6; margin-left: 20px;">
+                    <li><strong>Register as a donor</strong> - Create your profile with your blood type and location.</li>
+                    <li><strong>Verification</strong> - We verify your information to ensure the safety of all users.</li>
+                    <li><strong>Stay available</strong> - Update your availability status regularly.</li>
+                    <li><strong>Respond to requests</strong> - When someone nearby needs your blood type, you'll receive a notification.</li>
+                    <li><strong>Save lives</strong> - Coordinate directly with the recipient or their representative.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-links">
+                    <a href="home.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="FAQ.html">FAQ</a>
+                    <a href="Privacy Policy Page.html">Privacy Policy</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p>&copy; 2025 Blood Heroes. All rights reserved.</p>
+                <p>Contact us:BloodHeroes@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
