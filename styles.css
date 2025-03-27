@@ -87,6 +87,50 @@ header {
 .donate-button i {
     font-size: 1.1rem;
 }
+/* Blood Group Information Button Styling */
+.smart-assistant-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: #e63946; /* Red color to match your Blood Heroes theme */
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(230, 57, 70, 0.2);
+    text-decoration: none;
+}
+
+.smart-assistant-button i {
+    font-size: 18px;
+}
+
+.smart-assistant-button:hover {
+    background-color: #d62839; /* Slightly darker on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(230, 57, 70, 0.3);
+}
+
+.smart-assistant-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(230, 57, 70, 0.2);
+}
+
+/* Make sure the button inside an <a> tag doesn't show the default link styling */
+a .smart-assistant-button {
+    text-decoration: none;
+}
+
+/* Fix for the wrapping <a> tag */
+a[href="blood information.html"] {
+    text-decoration: none;
+    display: inline-block; /* Ensures proper spacing */
+}
 
 /* Hero Section */
 .hero {
