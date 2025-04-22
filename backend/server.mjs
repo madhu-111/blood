@@ -22,16 +22,30 @@ mongoose
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Donor Schema
+// Updated Donor Schema with detailed location
 const donorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   age: { type: Number, required: true },
   number: { type: String, required: true },
   bloodType: { type: String, required: true },
-  location: { type: String, required: true },
+  location: {
+    state: { type: String, required: true },
+    district: { type: String, required: true },
+    city: { type: String, required: true } // City/Town/Village
+  }
 });
 
 const Donor = mongoose.model("Donor", donorSchema);
+
+// Route to check if donor with mobile number exists
+app.get("/donors/check/:number", async (req, res) => {
+  try {
+    const existingDonor = await Donor.findOne({ number: req.params.number });
+    res.json({ exists: !!existingDonor });
+  } catch (error) {
+    res.status(500).json({ error: "Error checking donor" });
+  }
+});
 
 // ➤ Route to add a new donor with validation
 app.post(
@@ -43,7 +57,9 @@ app.post(
     body("bloodType")
       .isIn(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"])
       .withMessage("Invalid blood type"),
-    body("location").notEmpty().withMessage("Location is required"),
+    body("location.state").notEmpty().withMessage("State is required"),
+    body("location.district").notEmpty().withMessage("District is required"),
+    body("location.city").notEmpty().withMessage("City/Town/Village is required")
   ],
   async (req, res) => {
     const errors = validationResult(req);

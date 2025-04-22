@@ -5,7 +5,350 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Donation Website</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --secondary: #c0392b;
+            --text-dark: #333;
+            --text-light: #777;
+            --bg-light: #f9f9f9;
+            --white: #fff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .donate-button, .smart-assistant-button {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .donate-button:hover, .smart-assistant-button:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Filter Section */
+        .filter-container {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .filter-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .apply-filter, .reset-filter {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .apply-filter {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .apply-filter:hover {
+            background-color: var(--secondary);
+        }
+
+        .reset-filter {
+            background-color: #f0f0f0;
+            color: var(--text-dark);
+        }
+
+        .reset-filter:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Donors List */
+        .donors-list {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .donors-list h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        #donorList {
+            list-style: none;
+        }
+        
+        #donorList li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+        
+        #donorList li:last-child {
+            border-bottom: none;
+        }
+        
+        #donorList li:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .donor-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .blood-type {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .donor-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .donor-name {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .donor-location {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .contact-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .contact-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 40px 0;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            color: var(--white);
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 10px;
+            }
+            
+            .filter-options {
+                flex-direction: column;
+            }
+            
+            .donor-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            #donorList li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .contact-btn {
+                align-self: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -37,21 +380,61 @@
         <p>Every drop counts. Join our community of donors and help those in need. It takes just a few minutes to make a difference that lasts a lifetime.</p>
     </section>
 
-    <!-- Search and location -->
+    <!-- Filter Section -->
     <div class="container">
-        <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchBar" placeholder="Search for donors by name, blood type or location..." onkeyup="searchDonors()">
+        <div class="filter-container">
+            <div class="filter-title">
+                <i class="fas fa-filter"></i>
+                <span>Search Donors</span>
+            </div>
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label for="bloodGroupFilter">Blood Group</label>
+                    <select id="bloodGroupFilter">
+                        <option value="">All Blood Groups</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="stateFilter">State</label>
+                    <select id="stateFilter" onchange="loadDistricts()">
+                        <option value="">All States</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Telangana">Telangana</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="districtFilter">District</label>
+                    <select id="districtFilter" onchange="loadCities()">
+                        <option value="">All Districts</option>
+                        <!-- Districts will be populated based on state selection -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="cityFilter">City/Town/Village</label>
+                    <select id="cityFilter">
+                        <option value="">All Cities/Towns/Villages</option>
+                        <!-- Cities will be populated based on district selection -->
+                    </select>
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button class="apply-filter" onclick="applyFilters()">
+                    <i class="fas fa-check"></i> Search
+                </button>
+                <button class="reset-filter" onclick="resetFilters()">
+                    <i class="fas fa-undo"></i> Reset
+                </button>
+            </div>
         </div>
         
-        <!-- <div class="location-container">
-            <button class="location-button" onclick="getLocation()">
-                <i class="fas fa-map-marker-alt"></i>
-                Find Nearby Donors
-            </button>
-            <p id="userLocation"></p>
-        </div> -->
-
         <!-- Donor list -->
         <div class="donors-list">
             <h2 style="text-align: center;">Available Donors</h2>
@@ -76,178 +459,216 @@
                     <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                 </div>
                 <p>&copy; 2025 Blood Heroes. All rights reserved.</p>
-                <p>Contact us:BloodHeroes@gmail.com</p>
+                <p>Contact us: BloodHeroes@gmail.com</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Get user location
-        function getLocation() {
-            const locationText = document.getElementById('userLocation');
-            locationText.style.display = 'block';
-            locationText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting your location...';
+       // Location data for Andhra Pradesh and Telangana
+// Location data for Andhra Pradesh and Telangana
+const locationData = {
+    "Andhra Pradesh": {
+        "Anantapur": ["Anantapur", "Dharmavaram", "Hindupur", "Kadiri", "Tadipatri"],
+        "Chittoor": ["Chittoor", "Tirupati", "Madanapalle", "Srikalahasti", "Puttur"],
+        "East Godavari": ["Kakinada", "Rajahmundry", "Amalapuram", "Ramachandrapuram", "Mandapeta"],
+        "Guntur": ["Guntur", "Tenali", "Bapatla", "Narasaraopet", "Mangalagiri"],
+        "Krishna": ["Vijayawada", "Machilipatnam", "Gudivada", "Nuzvid", "Jaggaiahpeta"],
+        "Kurnool": ["Kurnool", "Adoni", "Nandyal", "Yemmiganur", "Dhone"],
+        "Prakasam": ["Ongole", "Markapur", "Chirala", "Kandukur", "Addanki"],
+        "Nellore": ["Nellore", "Kavali", "Gudur", "Venkatagiri", "Atmakur"],
+        "Srikakulam": ["Srikakulam", "Amadalavalasa", "Palasa", "Tekkali", "Rajam"],
+        "Visakhapatnam": ["Visakhapatnam", "Anakapalle", "Bheemunipatnam", "Gajuwaka", "Pendurthi"],
+        "Vizianagaram": ["Vizianagaram", "Bobbili", "Parvathipuram", "Salur", "Cheepurupalli"],
+        "West Godavari": ["Eluru", "Bhimavaram", "Palacole", "Tadepalligudem", "Tanuku"],
+        "YSR Kadapa": ["Kadapa", "Proddatur", "Rajampet", "Pulivendula", "Jammalamadugu"]
+    },
+    "Telangana": {
+        "Hyderabad": ["Hyderabad", "Secunderabad", "Kukatpally", "Gachibowli", "LB Nagar"],
+        "Adilabad": ["Adilabad", "Nirmal", "Mancherial", "Bellampalle", "Kagaznagar"],
+        "Bhadradri Kothagudem": ["Kothagudem", "Palvoncha", "Bhadrachalam", "Yellandu", "Manuguru"],
+        "Jagitial": ["Jagitial", "Korutla", "Metpalle", "Raikal", "Dharmapuri"],
+        "Jangaon": ["Jangaon", "Cherial", "Bachannapeta", "Narmetta", "Chilpur"],
+        "Jayashankar Bhupalpally": ["Bhupalpally", "Parakal", "Ghanpur", "Chityal", "Kataram"],
+        "Karimnagar": ["Karimnagar", "Huzurabad", "Jammikunta", "Choppadandi", "Manakondur"],
+        "Khammam": ["Khammam", "Madhira", "Wyra", "Sathupalli", "Kallur"],
+        "Mahabubabad": ["Mahabubabad", "Thorrur", "Kesamudram", "Dornakal", "Kuravi"],
+        "Mahabubnagar": ["Mahabubnagar", "Jadcherla", "Nawabpet", "Bhootpur", "Kodangal"],
+        "Mancherial": ["Mancherial", "Bellampalle", "Naspur", "Chennur", "Luxettipet"],
+        "Medak": ["Medak", "Toopran", "Ramayampet", "Narsapur", "Chegunta"],
+        "Medchal–Malkajgiri": ["Malkajgiri", "Medchal", "Quthbullapur", "Kukatpally", "Uppal"],
+        "Nagarkurnool": ["Nagarkurnool", "Achampet", "Kalwakurthy", "Kollapur", "Tadoor"],
+        "Nalgonda": ["Nalgonda", "Miryalaguda", "Devarakonda", "Nakrekal", "Suryapet"],
+        "Nirmal": ["Nirmal", "Bhainsa", "Khanapur", "Mudhole", "Basar"],
+        "Nizamabad": ["Nizamabad", "Bodhan", "Armoor", "Balkonda", "Bheemgal"],
+        "Peddapalli": ["Peddapalli", "Sultanabad", "Manthani", "Ramagundam", "Godavarikhani"],
+        "Rajanna Sircilla": ["Sircilla", "Vemulawada", "Konaraopet", "Tangalapalle", "Gambhiraopet"],
+        "Rangareddy": ["Shamshabad", "Kondapur", "Saroornagar", "Maheshwaram", "Ibrahimpatnam"],
+        "Sangareddy": ["Sangareddy", "Zaheerabad", "Andole", "Narayankhed", "Patancheru"],
+        "Siddipet": ["Siddipet", "Gajwel", "Dubbaka", "Husnabad", "Cheriyal"],
+        "Suryapet": ["Suryapet", "Kodad", "Huzurnagar", "Thungathurthy", "Tirumalagiri"],
+        "Vikarabad": ["Vikarabad", "Tandur", "Pargi", "Kodangal", "Doma"],
+        "Wanaparthy": ["Wanaparthy", "Atmakur", "Pebbair", "Gopalpet", "Ghanpur"],
+        "Warangal Rural": ["Warangal", "Narsampet", "Parkal", "Shayampet", "Raghunathapalle"],
+        "Warangal Urban": ["Warangal", "Hanamkonda", "Kazipet", "Wardhannapet", "Elkathurthy"],
+        "Yadadri Bhuvanagiri": ["Bhuvanagiri", "Aler", "Bhongir", "Ramannapet", "Motakondur"]
+    }
+};
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(async position => {
-                    const { latitude, longitude } = position.coords;
-                    
-                    try {
-                        // Fetch location name using OpenStreetMap's Nominatim API
-                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
-                        const data = await response.json();
-                        const locationName = data.display_name || "Unknown Location";
+// Load districts based on selected state
+function loadDistricts() {
+    const stateSelect = document.getElementById("stateFilter");
+    const districtSelect = document.getElementById("districtFilter");
+    const citySelect = document.getElementById("cityFilter");
+    
+    // Clear existing options
+    districtSelect.innerHTML = '<option value="">All Districts</option>';
+    citySelect.innerHTML = '<option value="">All Cities/Towns/Villages</option>';
+    
+    const selectedState = stateSelect.value;
+    if (selectedState) {
+        const districts = Object.keys(locationData[selectedState]);
+        districts.forEach(district => {
+            const option = document.createElement("option");
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+        });
+    }
+}
 
-                        locationText.innerHTML = `<i class="fas fa-map-marker-alt"></i> Your Location: ${locationName}`;
-                        
-                        // Now fetch and filter nearby donors
-                        loadNearbyDonors(latitude, longitude);
-                    } catch (error) {
-                        locationText.innerHTML = `<i class="fas fa-exclamation-circle"></i> Error fetching location details`;
-                    }
-                }, error => {
-                    locationText.innerHTML = `<i class="fas fa-exclamation-circle"></i> Error getting location: ${error.message}`;
-                    setTimeout(() => { locationText.style.display = 'none'; }, 3000);
-                }, { enableHighAccuracy: true });
-            } else {
-                locationText.innerHTML = '<i class="fas fa-exclamation-circle"></i> Geolocation is not supported by this browser.';
-                setTimeout(() => { locationText.style.display = 'none'; }, 3000);
-            }
-        }
+// Load cities based on selected district
+function loadCities() {
+    const stateSelect = document.getElementById("stateFilter");
+    const districtSelect = document.getElementById("districtFilter");
+    const citySelect = document.getElementById("cityFilter");
+    
+    // Clear existing city options
+    citySelect.innerHTML = '<option value="">All Cities/Towns/Villages</option>';
+    
+    const selectedState = stateSelect.value;
+    const selectedDistrict = districtSelect.value;
+    
+    if (selectedState && selectedDistrict) {
+        const cities = locationData[selectedState][selectedDistrict];
+        cities.forEach(city => {
+            const option = document.createElement("option");
+            option.value = city;
+            option.textContent = city;
+            citySelect.appendChild(option);
+        });
+    }
+}
 
-        // Load donors nearby (within 10 km)
-        function loadNearbyDonors(userLat, userLon) {
-            fetch('http://localhost:3000/donors')
-                .then(response => response.json())
-                .then(data => {
-                    const donorList = document.getElementById("donorList");
-                    donorList.innerHTML = ""; // Clear existing list
+// Reset filters
+function resetFilters() {
+    document.getElementById("bloodGroupFilter").value = "";
+    document.getElementById("stateFilter").value = "";
+    document.getElementById("districtFilter").innerHTML = '<option value="">All Districts</option>';
+    document.getElementById("cityFilter").innerHTML = '<option value="">All Cities/Towns/Villages</option>';
+    
+    // Load all donors
+    loadDonors();
+}
 
-                    const nearbyDonors = data.filter(donor => {
-                        if (donor.latitude && donor.longitude) {
-                            const distance = calculateDistance(userLat, userLon, donor.latitude, donor.longitude);
-                            return distance <= 10; // Only show donors within 10 km
-                        }
-                        return false;
-                    });
+// Apply filters
+function applyFilters() {
+    const bloodGroup = document.getElementById("bloodGroupFilter").value;
+    const state = document.getElementById("stateFilter").value;
+    const district = document.getElementById("districtFilter").value;
+    const city = document.getElementById("cityFilter").value;
+    
+    // Show loading indicator
+    const donorList = document.getElementById("donorList");
+    donorList.innerHTML = "<p style='text-align: center; color: var(--text-light);'>Loading donors...</p>";
+    
+    // Fetch donors and apply filters
+    fetchAndFilterDonors(bloodGroup, state, district, city);
+}
 
-                    if (nearbyDonors.length === 0) {
-                        donorList.innerHTML = "<p style='text-align: center; color: var(--text-light);'>No nearby donors found.</p>";
-                        return;
-                    }
-
-                    nearbyDonors.forEach(donor => {
-                        const listItem = document.createElement("li");
-                        
-                        const donorInfo = document.createElement("div");
-                        donorInfo.className = "donor-info";
-                        
-                        const bloodType = document.createElement("div");
-                        bloodType.className = "blood-type";
-                        bloodType.textContent = donor.bloodType;
-                        
-                        const donorDetails = document.createElement("div");
-                        donorDetails.className = "donor-details";
-                        
-                        const donorName = document.createElement("div");
-                        donorName.className = "donor-name";
-                        donorName.textContent = donor.name;
-                        
-                        const donorLocation = document.createElement("div");
-                        donorLocation.className = "donor-location";
-                        donorLocation.textContent = `${donor.location} • ${calculateDistance(userLat, userLon, donor.latitude, donor.longitude).toFixed(2)} km away`;
-                        
-                        const contactBtn = document.createElement("button");
-                        contactBtn.className = "contact-btn";
-                        contactBtn.textContent = "Contact";
-                        contactBtn.onclick = function() {
-                            alert(`Contact ${donor.name} at ${donor.number}`);
-                        };
-                        
-                        donorDetails.appendChild(donorName);
-                        donorDetails.appendChild(donorLocation);
-                        donorInfo.appendChild(bloodType);
-                        donorInfo.appendChild(donorDetails);
-                        listItem.appendChild(donorInfo);
-                        listItem.appendChild(contactBtn);
-                        
-                        donorList.appendChild(listItem);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById("donorList").innerHTML = "<p style='text-align: center; color: var(--text-light);'>Error loading donors. Please try again later.</p>";
-                });
-        }
-
-        // Calculate distance between two coordinates (Haversine formula)
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371; // Radius of Earth in km
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = 
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-                Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return R * c; // Distance in km
-        }
-
-        // Search donors
-        function searchDonors() {
-            let searchValue = document.getElementById("searchBar").value.toLowerCase();
-            let donors = document.querySelectorAll("#donorList li");
-            donors.forEach(donor => {
-                donor.style.display = donor.textContent.toLowerCase().includes(searchValue) ? "flex" : "none";
-            });
-        }
-
-            // Fetch and display donors from MongoDB
-function loadDonors() {
+// Fetch and filter donors with proper handling for nested location object
+function fetchAndFilterDonors(bloodGroup, state, district, city) {
+    console.log("Fetching donors with filters:", { bloodGroup, state, district, city });
+    
     fetch('http://localhost:3000/donors')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log("Retrieved donors:", data.length);
             const donorList = document.getElementById("donorList");
-            donorList.innerHTML = ""; // Clear the existing list
-
-            if (data.length === 0) {
-                donorList.innerHTML = "<p style='text-align: center; color: var(--text-light);'>No donors registered yet. Be the first to donate!</p>";
+            donorList.innerHTML = ""; // Clear existing list
+            
+            // Filter donors based on criteria
+            let filteredDonors = data;
+            
+            if (bloodGroup) {
+                console.log(`Filtering by blood group: ${bloodGroup}`);
+                filteredDonors = filteredDonors.filter(donor => donor.bloodType === bloodGroup);
+            }
+            
+            if (state || district || city) {
+                console.log(`Filtering by location: ${state}, ${district}, ${city}`);
+                
+                filteredDonors = filteredDonors.filter(donor => {
+                    // Check if donor has location and it's properly structured
+                    if (!donor.location) return false;
+                    
+                    // Handle location as nested object (as per your schema)
+                    if (state && donor.location.state !== state) {
+                        return false;
+                    }
+                    
+                    if (district && donor.location.district !== district) {
+                        return false;
+                    }
+                    
+                    if (city && donor.location.city !== city) {
+                        return false;
+                    }
+                    
+                    return true;
+                });
+            }
+            
+            console.log("Filtered donors:", filteredDonors.length);
+            
+            if (filteredDonors.length === 0) {
+                donorList.innerHTML = "<p style='text-align: center; color: var(--text-light);'>No donors found matching your criteria.</p>";
                 return;
             }
-
+            
             // Sort the donors alphabetically by name
-            data.sort((a, b) => {
-                return a.name.localeCompare(b.name);
-            });
-
-            data.forEach(donor => {
-                // Create list item with the enhanced structure
+            filteredDonors.sort((a, b) => a.name.localeCompare(b.name));
+            
+            // Display the filtered donors
+            filteredDonors.forEach(donor => {
                 const listItem = document.createElement("li");
                 
-                // Create donor info container
                 const donorInfo = document.createElement("div");
                 donorInfo.className = "donor-info";
                 
-                // Create blood type element
                 const bloodType = document.createElement("div");
                 bloodType.className = "blood-type";
                 bloodType.textContent = donor.bloodType;
                 
-                // Create donor details container
                 const donorDetails = document.createElement("div");
                 donorDetails.className = "donor-details";
                 
-                // Create donor name element
                 const donorName = document.createElement("div");
                 donorName.className = "donor-name";
                 donorName.textContent = donor.name;
                 
-                // Create donor location element
+                // Format location display based on the nested location object
+                const locationDisplay = `${donor.location.city}, ${donor.location.district}, ${donor.location.state}`;
+                
                 const donorLocation = document.createElement("div");
                 donorLocation.className = "donor-location";
-                donorLocation.textContent = `${donor.location} • Age: ${donor.age}`;
+                donorLocation.textContent = `${locationDisplay} • Age: ${donor.age}`;
                 
-                // Create contact button
                 const contactBtn = document.createElement("button");
                 contactBtn.className = "contact-btn";
                 contactBtn.textContent = "Contact";
@@ -255,7 +676,6 @@ function loadDonors() {
                     alert(`Contact ${donor.name} at ${donor.number}`);
                 };
                 
-                // Assemble the elements
                 donorDetails.appendChild(donorName);
                 donorDetails.appendChild(donorLocation);
                 donorInfo.appendChild(bloodType);
@@ -263,19 +683,52 @@ function loadDonors() {
                 listItem.appendChild(donorInfo);
                 listItem.appendChild(contactBtn);
                 
-                // Add to the donor list
                 donorList.appendChild(listItem);
             });
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Error fetching donors:', error);
             const donorList = document.getElementById("donorList");
-            donorList.innerHTML = "<p style='text-align: center; color: var(--text-light);'>Error loading donors. Please try again later.</p>";
+            donorList.innerHTML = `<p style='text-align: center; color: var(--primary);'>
+                Error loading donors: ${error.message}<br>
+                Please check if your API server is running at http://localhost:3000
+            </p>`;
         });
 }
 
-        // Initial load of donors
-        document.addEventListener('DOMContentLoaded', loadDonors);
+// Initial load of donors
+function loadDonors() {
+    // Simply call fetchAndFilterDonors with no filters
+    fetchAndFilterDonors("", "", "", "");
+}
+
+// Make sure event listeners are properly set up
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the donor list 
+    loadDonors();
+    
+    // Set up event listeners for filter controls if they exist
+    const stateFilter = document.getElementById("stateFilter");
+    const districtFilter = document.getElementById("districtFilter");
+    const filterButton = document.getElementById("applyFilters");
+    const resetButton = document.getElementById("resetFilters");
+    
+    if (stateFilter) {
+        stateFilter.addEventListener('change', loadDistricts);
+    }
+    
+    if (districtFilter) {
+        districtFilter.addEventListener('change', loadCities);
+    }
+    
+    if (filterButton) {
+        filterButton.addEventListener('click', applyFilters);
+    }
+    
+    if (resetButton) {
+        resetButton.addEventListener('click', resetFilters);
+    }
+});
     </script>
 </body>
 </html>

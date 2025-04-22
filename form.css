@@ -1,222 +1,244 @@
+/* Global Styles */
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
 }
 
+/* Header Styles */
 .header {
+    background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+    color: white;
     text-align: center;
-    margin-bottom: 30px;
-    color: #333;
+    padding: 3rem 1rem;
+    margin-bottom: 2rem;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
     font-size: 2.5rem;
-    margin-bottom: 10px;
-    color: #c82333;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
 }
 
 .header p {
-    font-size: 1.2rem;
-    color: #555;
-    max-width: 600px;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
-/* Donate Button */
+/* Donor Button */
 .donate-button {
     display: block;
     width: 250px;
-    margin: 20px auto;
-    padding: 15px;
-    background: linear-gradient(145deg, #e62739, #c82333);
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #e63946;
     color: white;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
     border: none;
     border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+    box-shadow: 0 4px 8px rgba(230, 57, 70, 0.3);
 }
 
 .donate-button:hover {
+    background-color: #d62828;
     transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(220, 53, 69, 0.5);
-    background: linear-gradient(145deg, #d41e30, #b41e2d);
+    box-shadow: 0 6px 12px rgba(230, 57, 70, 0.4);
 }
 
 .donate-button:active {
-    transform: translateY(1px);
+    transform: translateY(0);
 }
 
-/* Donor form container styling */
+/* Donor Form Container */
 .donor-form-container {
-    background: white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: white;
+    padding: 2rem;
     border-radius: 15px;
-    padding: 35px;
-    width: 100%;
-    max-width: 450px;
-    margin: 20px auto;
-    display: none; /* Hidden by default */
-    animation: fadeIn 0.5s ease;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     overflow: hidden;
 }
 
-.donor-form-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 100%;
-    background: linear-gradient(to bottom, #dc3545, #ff6b6b);
-}
-
 .donor-form-container h2 {
+    color: #e63946;
+    margin-bottom: 1.5rem;
     text-align: center;
-    margin-bottom: 25px;
-    font-size: 1.8em;
-    color: #c82333;
+    font-size: 1.8rem;
+}
+
+/* Blood Drop Animation */
+.blood-drop {
+    width: 30px;
+    height: 30px;
+    background-color: #e63946;
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(45deg);
+    margin-bottom: 1rem;
     position: relative;
-    padding-bottom: 12px;
+    animation: drip 2s infinite ease-in-out;
 }
 
-.donor-form-container h2::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(to right, #dc3545, #ff9999);
+@keyframes drip {
+    0% {
+        transform: rotate(45deg) scale(1);
+    }
+    50% {
+        transform: rotate(45deg) scale(1.2);
+    }
+    100% {
+        transform: rotate(45deg) scale(1);
+    }
 }
 
-.donor-form-container label {
-    font-size: 15px;
-    color: #444;
+/* Form Elements */
+form {
+    width: 100%;
+}
+
+label {
     display: block;
-    margin-bottom: 8px;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
     font-weight: 500;
 }
 
-.donor-form-container input,
-.donor-form-container select {
+input, select {
     width: 100%;
-    padding: 14px;
-    margin-bottom: 20px;
-    border: 2px solid #e1e1e1;
-    border-radius: 10px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background-color: #f9f9f9;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
 }
 
-.donor-form-container input:focus,
-.donor-form-container select:focus {
-    border-color: #dc3545;
-    background-color: #fff;
+input:focus, select:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+    border-color: #e63946;
+    box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.2);
 }
 
-.donor-form-container button {
-    background: linear-gradient(145deg, #2dbd4e, #28a745);
-    color: white;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 50px;
+input::placeholder {
+    color: #aaa;
+}
+
+button[type="submit"] {
     width: 100%;
+    padding: 1rem;
+    background-color: #e63946;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
-    margin-top: 10px;
+    margin-top: 1.5rem;
 }
 
-.donor-form-container button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(40, 167, 69, 0.5);
-    background: linear-gradient(145deg, #25a342, #218838);
+button[type="submit"]:hover {
+    background-color: #d62828;
 }
 
-.donor-form-container button:active {
-    transform: translateY(1px);
-}
-
-/* Blood drop decoration */
-.blood-drop {
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 100px;
-    height: 100px;
-    background-color: rgba(220, 53, 69, 0.1);
-    border-radius: 0 0 50% 50%;
-    transform: rotate(45deg);
-}
-
-/* Benefits section */
+/* Benefits Section */
 .benefits-container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    max-width: 900px;
-    margin: 40px auto 20px;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 3rem auto;
+    max-width: 1200px;
+    padding: 0 1rem;
 }
 
 .benefit-card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    width: 250px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 300px;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .benefit-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .benefit-card h3 {
-    color: #c82333;
-    margin-bottom: 10px;
+    color: #e63946;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
 }
 
 .benefit-card p {
-    color: #666;
+    color: #555;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 600px) {
-    .donor-form-container {
-        padding: 25px;
-        max-width: 90%;
-    }
-    
+/* Responsive Styles */
+@media (max-width: 768px) {
     .header h1 {
         font-size: 2rem;
     }
+    
+    .donor-form-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+    
+    .benefits-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .benefit-card {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+/* Form Error Styling */
+input:invalid, select:invalid {
+    border-color: #ffccd5;
+}
+
+input:invalid:focus, select:invalid:focus {
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+}
+
+/* Success Animation for Form Submission */
+@keyframes success-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    }
+}
+
+.form-success {
+    animation: success-pulse 1.5s;
 }

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Donation Portal</title>
     <link rel="stylesheet" href="form.css">
-
 </head>
 <body>
     <div class="header">
@@ -17,7 +16,7 @@
     <button class="donate-button" onclick="toggleDonorForm()">Become a Donor Today</button>
 
     <!-- Donor form -->
-    <div class="donor-form-container" id="donorFormContainer">
+    <div class="donor-form-container" id="donorFormContainer" style="display: none;">
         <div class="blood-drop"></div>
         <h2>Become a Blood Donor</h2>
         <form id="donorForm">
@@ -43,8 +42,25 @@
                 <option value="AB-">AB-</option>
             </select>
 
-            <label for="location">Location:</label>
-            <input type="text" id="location" placeholder="Your city or neighborhood" required>
+            <!-- Updated Location Fields with Dropdowns -->
+            <label for="state">State:</label>
+            <select id="state" required onchange="loadDistricts()">
+                <option value="">Select your state</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Telangana">Telangana</option>
+            </select>
+            
+            <label for="district">District:</label>
+            <select id="district" required onchange="loadCities()">
+                <option value="">Select your district</option>
+                <!-- Districts will be loaded based on state selection -->
+            </select>
+            
+            <label for="city">City/Town/Village:</label>
+            <select id="city" required>
+                <option value="">Select your city/town/village</option>
+                <!-- Cities will be loaded based on district selection -->
+            </select>
 
             <button type="submit">Submit Registration</button>
         </form>
@@ -66,7 +82,93 @@
     </div>
 
     <script>
+        // Location data for Andhra Pradesh and Telangana
+        const locationData = {
+            "Andhra Pradesh": {
+                "Anantapur": ["Anantapur", "Dharmavaram", "Hindupur", "Kadiri", "Tadipatri", "Peddapalli", "Rayadurg"],
+                "Chittoor": ["Chittoor", "Tirupati", "Madanapalle", "Srikalahasti", "Puttur", "Kuppam", "Vellore"],
+                "East Godavari": ["Kakinada", "Rajahmundry", "Amalapuram", "Mandapeta", "Peddapuram", "Kothapeta", "Ramachandrapuram"],
+                "Guntur": ["Guntur", "Tenali", "Mangalag iri", "Narasaraopet", "Chilakaluripet", "Bapatla", "Ponnur", "Prathipadu"],
+                "Krishna": ["Vijayawada", "Machilipatnam", "Nuzvid", "Gudivada", "Jaggaiahpeta", "Kankipadu", "Vuyyuru", "Chandarlapadu"],
+                "Kurnool": ["Kurnool", "Nandyal", "Adoni", "Yemmiganur", "Dhone", "Nallamada", "Peddagoni", "Kallur"],
+                "Prakasam": ["Ongole", "Chirala", "Markapur", "Kandukur", "Addanki", "Yerragondapalem", "Giddalur", "Peddaraveedu"],
+                "Nellore": ["Nellore", "Kavali", "Gudur", "Venkatagiri", "Atmakur", "Sullurpeta", "Nellore", "Nellore"],
+                "Srikakulam": ["Srikakulam", "Amadalavalasa", "Palasa", "Ichapuram", "Tekkali", "Narasannapeta", "Srikakulam", "Brahmanapalle"],
+                "Visakhapatnam": ["Visakhapatnam", "Anakapalle", "Bheemunipatnam", "Narsipatnam", "Pendurthi", "Chodavaram", "Malkapuram", "Visakhapatnam"],
+                "Vizianagaram": ["Vizianagaram", "Bobbili", "Parvatipuram", "Cheepurupalli", "Salur", "Nellimarla", "Dattirajeru", "Vizianagaram"],
+                "West Godavari": ["Eluru", "Bhimavaram", "Palacole", "Tadepalligudem", "Tanuku", "Nidadavole", "Kovvur", "Jangareddygudem"],
+                "YSR Kadapa": ["Kadapa", "Proddatur", "Rajampet", "Pulivendula", "Jammalamadugu", "Mydukur", "Kamallakuntla", "Chennur"]
+            },
+            "Telangana": {
+                "Adilabad": ["Adilabad", "Mancherial", "Nirmal", "Bellampalle", "Kagaznagar", "Kuntala", "Tandur"],
+                "Bhadradri Kothagudem": ["Kothagudem", "Palvancha", "Yellandu", "Bhadrachalam", "Manuguru", "Sathupalli", "Kothagudem"],
+                "Hyderabad": ["Hyderabad", "Secunderabad", "Kukatpally", "Gachibowli", "Uppal", "LB Nagar", "Malkajgiri", "Himayatnagar"],
+                "Jagtial": ["Jagtial", "Korutla", "Metpally", "Dharmapuri", "Raikal", "Jagitial", "Kamalapur"],
+                "Jangaon": ["Jangaon", "Cherial", "Narmetta", "Bachannapet", "Devaruppula", "Ghanpur", "Kothapet"],
+                "Karimnagar": ["Karimnagar", "Huzurabad", "Jammikunta", "Choppadandi", "Manakondur", "Sircilla", "Vemulawada"],
+                "Khammam": ["Khammam", "Wyra", "Sathupalli", "Madhira", "Kallur", "Palair", "Bhadrachalam"],
+                "Mahabubabad": ["Mahabubabad", "Thorrur", "Dornakal", "Gudur", "Kesamudram", "Maripeda", "Narsampet"],
+                "Mahabubnagar": ["Mahabubnagar", "Jadcherla", "Makthal", "Narayanpet", "Kodangal", "Shadnagar", "Bhootpur"],
+                "Mancherial": ["Mancherial", "Bellampalle", "Naspur", "Luxettipet", "Mandamarri", "Kashipur", "Kondapur"],
+                "Medak": ["Medak", "Ramayampet", "Toopran", "Narsapur", "Chegunta", "Siddipet", "Dubbak"],
+                "Medchal-Malkajgiri": ["Medchal", "Malkajgiri", "Kukatpally", "Quthbullapur", "Alwal", " Malkajgiri", "Nagole", "Kachiguda"],
+                "Nagarkurnool": ["Nagarkurnool", "Kalwakurthy", "Achampet", "Kollapur", "Tadoor", "Nagarkurnool"],
+                "Nalgonda": ["Nalgonda", "Miryalaguda", "Suryapet", "Devarakonda", "Nakrekal", "Nalgonda"],
+                "Nirmal": ["Nirmal", "Bhainsa", "Khanapur", "Basar", "Lokeshwaram", "Nirmal"],
+                "Nizamabad": ["Nizamabad", "Bodhan", "Armoor", "Banswada", "Bheemgal", "Nizamabad"],
+                "Ranga Reddy": ["Shamshabad", "Ibrahimpatnam", "Chevella", "Shadnagar", "Vikarabad", "Ranga Reddy"],
+                "Sangareddy": ["Sangareddy", "Zaheerabad", "Sadasivpet", "Patancheru", "Andole", "Sangareddy"],
+                "Siddipet": ["Siddipet", "Gajwel", "Dubbak", "Husnabad", "Cheriyal", "Siddipet"],
+                "Suryapet": ["Suryapet", "Kodad", "Huzurnagar", "Nereducherla", "Tirumalagiri", "Suryapet"],
+                "Warangal": ["Warangal", "Hanamkonda", "Kazipet", "Parkal", "Wardhannapet", "Warangal"]
+            }
+        };
 
+        // Function to load districts based on selected state
+        function loadDistricts() {
+            const stateSelect = document.getElementById("state");
+            const districtSelect = document.getElementById("district");
+            const citySelect = document.getElementById("city");
+            
+            // Clear previous options
+            districtSelect.innerHTML = '<option value="">Select your district</option>';
+            citySelect.innerHTML = '<option value="">Select your city/town/village</option>';
+            
+            const selectedState = stateSelect.value;
+            if (!selectedState) return;
+            
+            // Add districts for the selected state
+            const districts = Object.keys(locationData[selectedState]);
+            districts.forEach(district => {
+                const option = document.createElement("option");
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        }
+        
+        // Function to load cities based on selected district
+        function loadCities() {
+            const stateSelect = document.getElementById("state");
+            const districtSelect = document.getElementById("district");
+            const citySelect = document.getElementById("city");
+            
+            // Clear previous options
+            citySelect.innerHTML = '<option value="">Select your city/town/village</option>';
+            
+            const selectedState = stateSelect.value;
+            const selectedDistrict = districtSelect.value;
+            if (!selectedState || !selectedDistrict) return;
+            
+            // Add cities for the selected district
+            const cities = locationData[selectedState][selectedDistrict];
+            cities.forEach(city => {
+                const option = document.createElement("option");
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+        }
 
         function toggleDonorForm() {
             const formContainer = document.getElementById("donorFormContainer");
@@ -77,7 +179,6 @@
             }
         }
 
-
         // Handle form submission
         function handleFormSubmit(event) {
             event.preventDefault();
@@ -86,16 +187,27 @@
             const age = document.getElementById("age").value;
             const number = document.getElementById("number").value;
             const bloodType = document.getElementById("bloodType").value;
-            const location = document.getElementById("location").value;
+            
+            // Get the location fields
+            const state = document.getElementById("state").value;
+            const district = document.getElementById("district").value;
+            const city = document.getElementById("city").value;
+            
+            // Combine location data
+            const location = {
+                state: state,
+                district: district,
+                city: city
+            };
 
-            if (!name || !age || !number || !bloodType || !location) {
+            if (!name || !age || !number || !bloodType || !state || !district || !city) {
                 alert("Please fill out all fields.");
                 return;
             }
 
             // First check if a donor with the same mobile number already exists
             fetch(`http://localhost:3000/donors/check/${number}`)
-                .then(response => response.json())
+                . then(response => response.json())
                 .then(data => {
                     if (data.exists) {
                         alert("A donor with this mobile number already exists. Please use a different number.");
@@ -115,7 +227,14 @@
                     .then(data => {
                         console.log('Donor added:', data);
                         alert("Donor added successfully!");
-                        loadDonors(); // Reload the donor list
+                        try {
+                            // Only call loadDonors if it exists
+                            if (typeof loadDonors === 'function') {
+                                loadDonors();
+                            }
+                        } catch (e) {
+                            // Ignore if function doesn't exist
+                        }
                         document.getElementById("donorForm").reset();
                         toggleDonorForm();
                     })
@@ -139,7 +258,14 @@
                     .then(data => {
                         console.log('Donor added:', data);
                         alert("Donor added successfully!");
-                        loadDonors(); // Reload the donor list
+                        try {
+                            // Only call loadDonors if it exists
+                            if (typeof loadDonors === 'function') {
+                                loadDonors();
+                            }
+                        } catch (e) {
+                            // Ignore if function doesn't exist
+                        }
                         document.getElementById("donorForm").reset();
                         toggleDonorForm();
                     })
@@ -150,28 +276,28 @@
                 });
         }
 
-        document.getElementById("donorForm").addEventListener("submit", handleFormSubmit);
+        // Remove this duplicate event listener which causes conflicts
+        // document.getElementById("donorForm").addEventListener("submit", function(event) {...});
 
-         // Toggle donor form visibility
-         function toggleDonorForm() {
+        // Instead, keep only one submit handler
+        document.getElementById("donorForm").addEventListener("submit", function(event) {
+            // Call our main form submission handler
+            handleFormSubmit(event);
+            
+            // Show success message
+            alert("Thank you for registering as a donor! Our team will contact you soon to schedule your donation.");
+            
+            // Navigate to home.html after 1 second
+            setTimeout(() => {
+                window.location.href = "home.html";
+            }, 1000);
+        });
+
+        // Initialize form visuals
+        function toggleDonorForm() {
             let formContainer = document.getElementById("donorFormContainer");
             formContainer.style.display = formContainer.style.display === "none" || formContainer.style.display === "" ? "flex" : "none";
         }
-
-        // Handle form submission
-        document.getElementById("donorForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission behavior
-        
-        // Show success message
-        alert("Thank you for registering as a donor! Our team will contact you soon to schedule your donation.");
-        
-        // Navigate to home.html after 2 seconds
-        setTimeout(() => {
-            window.location.href = "home.html";
-        }, 1000);
-    });
-
     </script>
-    <!-- <script src="script.js"></script> -->
 </body>
 </html>
