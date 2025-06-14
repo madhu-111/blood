@@ -4,351 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Donation Website</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #e74c3c;
-            --secondary: #c0392b;
-            --text-dark: #333;
-            --text-light: #777;
-            --bg-light: #f9f9f9;
-            --white: #fff;
-            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--primary);
-        }
-        
-        .logo i {
-            font-size: 28px;
-        }
-        
-        .logo h1 {
-            font-size: 24px;
-            font-weight: 700;
-        }
-        
-        .donate-button, .smart-assistant-button {
-            background-color: var(--primary);
-            color: var(--white);
-            border: none;
-            border-radius: 25px;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .donate-button:hover, .smart-assistant-button:hover {
-            background-color: var(--secondary);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 60px 0;
-        }
-        
-        .hero h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .hero p {
-            font-size: 18px;
-            color: var(--text-light);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Filter Section */
-        .filter-container {
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-        
-        .filter-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .filter-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .filter-group {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .filter-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;    
-            color: var(--text-dark);
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            justify-content: center;
-        }
-
-        .apply-filter, .reset-filter {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .apply-filter {
-            background-color: var(--primary);
-            color: var(--white);
-        }
-
-        .apply-filter:hover {
-            background-color: var(--secondary);
-        }
-
-        .reset-filter {
-            background-color: #f0f0f0;
-            color: var(--text-dark);
-        }
-
-        .reset-filter:hover {
-            background-color: #e0e0e0;
-        }
-
-        /* Donors List */
-        .donors-list {
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-        
-        .donors-list h2 {
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        #donorList {
-            list-style: none;
-        }
-        
-        #donorList li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.3s ease;
-        }
-        
-        #donorList li:last-child {
-            border-bottom: none;
-        }
-        
-        #donorList li:hover {
-            background-color: #f5f5f5;
-        }
-        
-        .donor-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .blood-type {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        
-        .donor-details {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .donor-name {
-            font-weight: 600;
-            font-size: 18px;
-        }
-        
-        .donor-location {
-            color: var(--text-light);
-            font-size: 14px;
-        }
-        
-        .contact-btn {
-            background-color: var(--primary);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            padding: 8px 15px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .contact-btn:hover {
-            background-color: var(--secondary);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--text-dark);
-            color: var(--white);
-            padding: 40px 0;
-        }
-        
-        .footer-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .footer-links a {
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-icon {
-            color: var(--white);
-            font-size: 20px;
-            transition: color 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            color: var(--primary);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .logo {
-                margin-bottom: 10px;
-            }
-            
-            .filter-options {
-                flex-direction: column;
-            }
-            
-            .donor-info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            #donorList li {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .contact-btn {
-                align-self: flex-start;
-            }
-        }
-    </style>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩸</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    
 </head>
 <body>
     <header>
@@ -371,8 +29,17 @@
                         Blood Group Information
                     </button>
                 </a>
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+                <span class="theme-toggle-slider">
+                <i class="fas fa-sun sun-icon"></i>
+                <i class="fas fa-moon moon-icon"></i>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+                 </span>
+                 </button>
             </div>
         </div>
+    
     </header>
 
     <section class="hero container">
@@ -465,6 +132,34 @@
     </footer>
 
     <script>
+         const themeToggle = document.getElementById("themeToggle");
+
+    // Function to toggle theme
+    function toggleTheme() {
+        const currentTheme = document.body.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        document.body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+
+        // Optional: Animate transition
+        document.body.classList.add("theme-transitioning");
+        setTimeout(() => {
+            document.body.classList.remove("theme-transitioning");
+        }, 500);
+    }
+
+    // Event listener
+    if (themeToggle) {
+        themeToggle.addEventListener("click", toggleTheme);
+    }
+
+    // Load saved theme from localStorage on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.body.setAttribute("data-theme", savedTheme);
+    });
+
        // Location data for Andhra Pradesh and Telangana
 // Location data for Andhra Pradesh and Telangana
 const locationData = {

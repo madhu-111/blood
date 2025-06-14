@@ -4,9 +4,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Donation Portal</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩸</text></svg>">
     <link rel="stylesheet" href="form.css">
+    <style>
+        /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+/* Theme Variables */
+:root {
+    --primary: #e74c3c; 
+    --white: #ffffff;
+    --text-dark: #2d3436;
+    --text-light: #bdc3c7;
+    --bg-light: #f9f9f9;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --white: #2d2d2d;
+    --text-dark: #ffffff;
+    --text-light: #b0bec5;
+    --bg-light: #1a1a1a;
+    --card-bg: rgba(45, 45, 45, 0.9);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow: rgba(255, 255, 255, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Blood Drop Animation */
+.blood-drop {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, var(--primary), darken(var(--primary), 10%));
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    margin-left: -25px;
+    animation: drop 3s infinite;
+}
+
+.blood-drop::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 15px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+}
+
+@keyframes drop {
+    0% { transform: translateY(0) rotate(-45deg); }
+    50% { transform: translateY(10px) rotate(-45deg); }
+    100% { transform: translateY(0) rotate(-45deg); }
+}
+
+/* Donor Form Container */
+.donor-form-container {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    margin: 60px auto;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    animation: fadeInUp 0.8s ease-out;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.donor-form-container h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: var(--primary);
+    position: relative;
+}
+
+.donor-form-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-dark);
+    position: relative;
+}
+
+input,
+select {
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 100%;
+    background: var(--white);
+    color: var(--text-dark);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.2);
+}
+
+button[type="submit"] {
+    background: linear-gradient(to right, var(--primary), #c0392b);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+button[type="submit"]:hover::before {
+    left: 100%;
+}
+
+/* Benefits Section */
+.benefits-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.benefit-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.benefit-card h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: var(--primary);
+}
+
+.benefit-card p {
+    font-size: 15px;
+    color: var(--text-light);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .donor-form-container {
+        margin: 40px 20px;
+        padding: 30px 20px;
+    }
+
+    .benefits-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+    </style>
 </head>
 <body>
+    <button class="theme-toggle" id="themeToggle">
+    <span class="theme-toggle-slider">
+        <i class="sun-icon">☀️</i>
+        <i class="moon-icon">🌙</i>
+    </span>
+</button>
     <div class="header">
         <h1>Save Lives, Donate Blood</h1>
         <p>Your donation can save up to 3 lives. Join our community of heroes making a difference every day.</p>
@@ -82,6 +332,29 @@
     </div>
 
     <script>
+            const themeToggle = document.getElementById("themeToggle");
+
+    function toggleTheme() {
+        const currentTheme = document.body.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        document.body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+
+        // Optional transition effect
+        document.body.classList.add("theme-transitioning");
+        setTimeout(() => {
+            document.body.classList.remove("theme-transitioning");
+        }, 500);
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", toggleTheme);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.body.setAttribute("data-theme", savedTheme);
+    });
         // Location data for Andhra Pradesh and Telangana
         const locationData = {
             "Andhra Pradesh": {
