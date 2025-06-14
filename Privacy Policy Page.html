@@ -6,57 +6,477 @@
     <title>Privacy Policy - Blood Heroes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩸</text></svg>">
-    <link rel="stylesheet" href="styles.css">
     <style>
-        .privacy-section {
-            padding: 30px 0;
+        :root {
+            --primary-color: #ef4444;
+            --primary-dark: #dc2626;
+            --secondary-color: #fca5a5;
+            --bg-dark: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --text-primary: #ffffff;
+            --text-secondary: #e5e5e5;
+            --text-light: #a3a3a3;
+            --border-color: #333333;
+            --accent-color: #ff6b6b;
+            --shadow-dark: rgba(0, 0, 0, 0.8);
+            --shadow-red: rgba(239, 68, 68, 0.3);
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-secondary) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+            padding: 1rem 0;
+            box-shadow: 0 8px 32px var(--shadow-dark);
+            border-bottom: 2px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            animation: pulse 2s infinite;
+            filter: drop-shadow(0 0 10px var(--primary-color));
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo h1 {
+            color: var(--text-primary);
+            font-size: 1.9rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px var(--shadow-dark);
+        }
+
+        .donate-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px var(--shadow-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .donate-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px var(--shadow-red);
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            filter: brightness(1.1);
+        }
+
+        .donate-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* Privacy Section Styles */
+        .privacy-section {
+            padding: 80px 0;
+            background: var(--bg-dark);
+        }
+
+        .privacy-section h1 {
+            color: var(--text-primary);
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 8px var(--shadow-dark);
+            font-weight: 800;
+        }
+
         .privacy-section h2 {
             color: var(--primary-color);
-            margin: 30px 0 15px;
+            margin: 50px 0 25px;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 12px;
+            text-shadow: 0 2px 4px var(--shadow-dark);
+            position: relative;
         }
+
+        .privacy-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+        }
+
         .privacy-section h3 {
-            color: var(--primary-color);
-            margin: 20px 0 10px;
+            color: var(--secondary-color);
+            margin: 30px 0 18px;
+            font-size: 1.4rem;
+            font-weight: 600;
         }
-        .privacy-section p, .privacy-section ul, .privacy-section ol {
-            margin-bottom: 15px;
-            line-height: 1.6;
+
+        .privacy-section p, 
+        .privacy-section ul, 
+        .privacy-section ol {
+            margin-bottom: 24px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
         }
-        .privacy-section ul, .privacy-section ol {
-            padding-left: 20px;
+
+        .privacy-section ul, 
+        .privacy-section ol {
+            padding-left: 30px;
         }
+
         .privacy-section li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            position: relative;
         }
+
+        .privacy-section li::marker {
+            color: var(--primary-color);
+        }
+
+        .privacy-section li strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
         .privacy-section .updated-date {
             font-style: italic;
             color: var(--text-light);
-            margin-bottom: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 1rem;
+            background: var(--bg-card);
+            padding: 12px 24px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px var(--shadow-dark);
         }
+
         .privacy-section .section-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 5px 5px 0;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border-left: 5px solid var(--primary-color);
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 0 8px 25px var(--shadow-dark);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
         }
+
+        .section-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color), transparent);
+        }
+
+        .section-box p {
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Table Styles */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 40px 0;
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-dark);
+            border: 1px solid var(--border-color);
         }
+
         th, td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f8f9fa;
-            font-weight: bold;
+            padding: 20px 24px;
+            border: 1px solid var(--border-color);
             text-align: left;
         }
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
+
+        th {
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        td {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        tr:nth-child(even) td {
+            background: var(--bg-secondary);
+        }
+
+        tr:hover td {
+            background: linear-gradient(90deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-dark) 100%);
+            color: var(--text-secondary);
+            padding: 50px 0 25px;
+            margin-top: 60px;
+            border-top: 2px solid var(--border-color);
+            box-shadow: 0 -8px 25px var(--shadow-dark);
+        }
+
+        .footer-container {
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            background: var(--bg-card);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-red);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px var(--shadow-red);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            font-size: 1.2rem;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px var(--shadow-red);
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            filter: brightness(1.2);
+        }
+
+        footer p {
+            margin: 12px 0;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-color), var(--primary-dark));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--accent-color), var(--primary-color));
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px var(--primary-color));
+            }
+            50% { 
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 15px var(--primary-color));
+            }
+        }
+
+        /* Selection styling */
+        ::selection {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        ::-moz-selection {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .privacy-section {
+                padding: 50px 0;
+            }
+
+            .privacy-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .privacy-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .social-icons {
+                gap: 20px;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 15px 12px;
+            }
+
+            .section-box {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .privacy-section h1 {
+                font-size: 2rem;
+            }
+
+            .privacy-section h2 {
+                font-size: 1.4rem;
+            }
+
+            .section-box {
+                padding: 20px;
+            }
+
+            .donate-button {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+
+            .logo i {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Dark mode enhancements */
+        .privacy-section {
+            position: relative;
+        }
+
+        .privacy-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(239, 68, 68, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.03) 0%, transparent 50%);
+            pointer-events: none;
         }
     </style>
 </head>
@@ -184,9 +604,9 @@
             
             <h2>10. Contact Us</h2>
             <p>If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at:</p>
-            <p>Email:BloodHeroes@gmail.com</p>
-            <p>Address: SRKR Engineering Collage,Bhimavaram,534204</p>
-            <p>Phone:83xxxxxx05</p>
+            <p>Email: BloodHeroes@gmail.com</p>
+            <p>Address: SRKR Engineering College, Bhimavaram, 534204</p>
+            <p>Phone: 83xxxxxx05</p>
         </div>
     </div>
 
@@ -206,7 +626,7 @@
                     <a href="https://www.instagram.com/blood_heros_srkr?igsh=MWF3OGFlamRndG9lMg==" class="social-icon"><i class="fab fa-instagram"></i></a>
                 </div>
                 <p>&copy; 2025 Blood Heroes. All rights reserved.</p>
-                <p>Contact us:BloodHeroes@gmail.com</p>
+                <p>Contact us: BloodHeroes@gmail.com</p>
             </div>
         </div>
     </footer>
