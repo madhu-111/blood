@@ -285,7 +285,7 @@ function applyFilters() {
 function fetchAndFilterDonors(bloodGroup, state, district, city) {
     console.log("Fetching donors with filters:", { bloodGroup, state, district, city });
     
-    fetch('http://localhost:3000/donors')
+    fetch('https://blood-backend-1-u7vl.onrender.com/donors')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
