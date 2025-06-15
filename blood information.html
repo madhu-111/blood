@@ -7,7 +7,280 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩸</text></svg>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.9.1/chart.min.js"></script>
-    ,<link rel="stylesheet" href="bi.css">
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #2a2a2a;
+            --accent: #a8dadc;
+            --dark: #1a1a1a;
+            --darker: #0f0f0f;
+            --text: #e5e5e5;
+            --text-light: #b0b0b0;
+            --light: #333333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--darker);
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #444;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 24px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background-color: #d1282a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(230, 57, 70, 0.3);
+        }
+
+        .secondary-button {
+            background-color: var(--accent);
+            color: var(--darker);
+        }
+
+        .secondary-button:hover {
+            background-color: #8bc8ca;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px 0;
+            min-height: calc(100vh - 170px);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Blood Type Info Section */
+        .blood-info {
+            background-color: var(--light);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            border: 1px solid #444;
+        }
+
+        .blood-info h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .blood-info p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .blood-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .blood-type-card {
+            background-color: var(--secondary);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #444;
+        }
+
+        .blood-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(230, 57, 70, 0.2);
+            border-color: var(--primary);
+        }
+
+        .blood-type-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .blood-type-info {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .blood-type-info p {
+            margin-bottom: 5px;
+        }
+
+        .blood-type-info strong {
+            color: var(--text);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            color: var(--text);
+            padding: 20px 0;
+            margin-top: 30px;
+            border-top: 1px solid #444;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            color: var(--text-light);
+            font-size: 18px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .chat-analytics-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blood-types {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blood-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 20px;
+                background: var(--light);
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: var(--shadow);
+                display: none;
+                border: 1px solid #444;
+            }
+            
+            .nav-buttons.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -95,23 +368,26 @@
                 </div>
             </div>
         </section>
-        <footer>
-            <div class="container">
-                <div class="footer-container">
-                    <div class="footer-links">
-                        <a href="about.html">About Us</a>
-                        <a href="FAQ.html">FAQ</a>
-                        <a href="Privacy Policy Page.html">Privacy Policy</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/blood_heros_srkr?igsh=MWF3OGFlamRndG9lMg==" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    </div>
-                    <p>&copy; 2025 Blood Heroes. All rights reserved.</p>
-                    <p>Contact us:BloodHeroes@gmail.com</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-links">
+                    <a href="about.html">About Us</a>
+                    <a href="FAQ.html">FAQ</a>
+                    <a href="Privacy Policy Page.html">Privacy Policy</a>
+                    <a href="contact.html">Contact</a>
                 </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/blood_heros_srkr?igsh=MWF3OGFlamRndG9lMg==" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p>&copy; 2025 Blood Heroes. All rights reserved.</p>
+                <p>Contact us:BloodHeroes@gmail.com</p>
             </div>
-        </footer>
-      
+        </div>
+    </footer>
+</body>
+</html>
