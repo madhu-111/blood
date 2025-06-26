@@ -1,4 +1,4 @@
-# Blood Hero's 🩸
+# Blood Bro's 🩸
 
 A comprehensive blood donation management system that connects donors with those in need, featuring modern web design with both light and dark mode support.
 
