@@ -399,7 +399,7 @@ function applyFilters() {
 function fetchAndFilterDonors(bloodGroup, state, district, city) {
     console.log("Fetching donors with filters:", { bloodGroup, state, district, city });
     
-    fetch('https://blood-backend-1-u7vl.onrender.com/donors')
+    fetch('https://blood-backend-pearl.vercel.app/donors')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
