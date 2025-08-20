@@ -359,7 +359,7 @@
             }
 
             // First check if a donor with the same mobile number already exists
-            fetch(`https://blood-backend-1-u7vl.onrender.com/donors/check/${number}`)
+            fetch(`https://blood-backend-pearl.vercel.app/donors/check/${number}`)
                 . then(response => response.json())
                 .then(data => {
                     if (data.exists) {
@@ -371,7 +371,7 @@
                     const newDonor = { name, age, number, bloodType, location };
 
                     // Send donor data to the backend
-                    fetch('https://blood-backend-1-u7vl.onrender.com/donors', {
+                    fetch('https://blood-backend-pearl.vercel.app/donors', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(newDonor)
@@ -402,7 +402,7 @@
                     // Fallback to the original code if the check endpoint is not available
                     const newDonor = { name, age, number, bloodType, location };
                     
-                    fetch('https://blood-backend-1-u7vl.onrender.com/donors', {
+                    fetch('https://blood-backend-pearl.vercel.app/donors', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(newDonor)
